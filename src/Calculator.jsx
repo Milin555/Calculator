@@ -1,38 +1,66 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const Calculator = () => {
-  return (
-    <>
-    <div className='container'>
-        <input placeholder='0' />
 
-       
-    </div>
-       <button value="(">(</button>
-       <button value=")">)</button>
-       <button value="%">%</button>
-       <button value="AC">AC</button>
+    const [data, setData] = useState("")
 
-       <button value="7">7</button>
-       <button value="8">8</button>
-       <button value="9">9</button>
-       <button value="*">*</button>
+    const getvalue = (e) => {
+        const val = e.target.value
 
-       <button value="4">4</button>
-       <button value="5">5</button>
-       <button value="7">7</button>
-       <button value="-">-</button>
+        if (val === "AC") {
+            setData("")
+        }
+        else if (val === "Back") {
+            setData(data.slice(0, -1))
+        }
+        else if (val === "=") {
+            try {
+                setData(eval(data))
+            } catch {
+                setData("Error")
+            }
+        }
+        else {
+            setData(data + val)
+        }
+    }
 
-       <button value="1">1</button>
-       <button value="2">2</button>
-       <button value="3">3</button>
-       <button value="+">+</button>
+    return (
+        <>
+            <div className='container'>
 
-       <button value="0">0</button>
-       <button value="Back">Back</button>
-       <button value="=">=</button>
-       <button value="/">/</button>
-    </>
+                <input value={data} placeholder='0' readOnly />
 
-  )
+                <div className='buttons'>
+
+                    <button onClick={getvalue} value="(">(</button>
+                    <button onClick={getvalue} value=")">)</button>
+                    <button onClick={getvalue} value="%">%</button>
+                    <button onClick={getvalue} value="AC">AC</button>
+
+                    <button onClick={getvalue} value="7">7</button>
+                    <button onClick={getvalue} value="8">8</button>
+                    <button onClick={getvalue} value="9">9</button>
+                    <button onClick={getvalue} value="*">*</button>
+
+                    <button onClick={getvalue} value="4">4</button>
+                    <button onClick={getvalue} value="5">5</button>
+                    <button onClick={getvalue} value="6">6</button>
+                    <button onClick={getvalue} value="-">-</button>
+
+                    <button onClick={getvalue} value="1">1</button>
+                    <button onClick={getvalue} value="2">2</button>
+                    <button onClick={getvalue} value="3">3</button>
+                    <button onClick={getvalue} value="+">+</button>
+
+                    <button onClick={getvalue} value="0">0</button>
+                    <button onClick={getvalue} value="Back">Back</button>
+                    <button onClick={getvalue} value="=">=</button>
+                    <button onClick={getvalue} value="/">/</button>
+
+                </div>
+
+            </div>
+        </>
+    )
 }
